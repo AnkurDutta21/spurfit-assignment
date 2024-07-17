@@ -9,24 +9,16 @@ import block2 from '../assets/Block (2).png';
 import block3 from '../assets/Block (3).png';
 import block4 from '../assets/Block (4).png';
 import block5 from '../assets/Block (5).png';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 const WorkoutPage = () => {
-  const [blocks, setBlocks] = useState([
-    { id: '4', type: 'Repeat Steps', distance: 4, subSteps: ['2KM', '2KM'], image: block3 },
-    {
-      id: '6',
-      type: 'Ramp Down',
-      distance: 4,
-      subSteps: ['1 KM', '1 KM', '1 KM', '1 KM'],
-      image: block5,
-    }, 
-    { id: '1', type: 'Warm Up', distance: 3, image: block0 },
-  ]);
+  const [blocks, setBlocks] = useState([]);
+
   const initialBlocks = [
     { id: '1', type: 'Warm Up', distance: 3, image: block0 },
     { id: '2', type: 'Active', distance: 3, image: block1 },
     { id: '3', type: 'Cool Down', distance: 3, image: block2 },
-    { id: '4', type: 'Repeat Steps', distance: 4, subSteps: ['2KM', '2KM'], image: block3 },
+    { id: '4', type: 'Repeat Steps', distance: 4, subSteps: ['2 KM', '2 KM'], image: block3 },
     { id: '5', type: 'Ramp Up', distance: 5, subSteps: ['2 KM', '1 KM', '1 KM', '1 KM'], image: block4 },
     { id: '6', type: 'Ramp Down', distance: 4, subSteps: ['1 KM', '1 KM', '1 KM', '1 KM'], image: block5 },
   ];
@@ -35,16 +27,36 @@ const WorkoutPage = () => {
     console.log('do Something');
   };
 
+  const handleResetBlocks = () => {
+    setBlocks([]);
+  };
+
+  const onDragEnd = (result) => {
+    const { source, destination } = result;
+    if (!destination) return;
+    let updatedBlocks = [...blocks];
+    if (source.droppableId !== destination.droppableId) {
+      const newBlock = initialBlocks[source.index];
+      updatedBlocks.splice(destination.index, 0, newBlock);
+    } else {
+      const [movedBlock] = updatedBlocks.splice(source.index, 1);
+      updatedBlocks.splice(destination.index, 0, movedBlock);
+    }
+    setBlocks(updatedBlocks);
+  };
+
   return (
     <>
-      <Topbar name="Run Workout" handleBtnClick={handleBtnClick} />
-      <div className="cont w-90 grid grid-cols-3 gap-16 mx-auto">
-        <AddWorkout initialBlocks={initialBlocks} className="col-span-1" />
-        <div className="new col-span-2">
-          <Graph blocks={blocks} />
-          <Steps blocks={blocks}/>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Topbar name="Run Workout" handleBtnClick={handleBtnClick} />
+        <div className="w-11/12 grid grid-cols-4 gap-8 mx-auto">
+          <AddWorkout initialBlocks={initialBlocks} setBlocks={setBlocks} className="col-span-1" />
+          <div className="new col-span-3">
+            <Graph blocks={blocks} handleResetBlocks={handleResetBlocks} />
+            <Steps blocks={blocks} />
+          </div>
         </div>
-      </div>
+      </DragDropContext>
     </>
   );
 };
