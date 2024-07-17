@@ -1,0 +1,32 @@
+
+.addbtn {
+    position: absolute;
+    bottom: -14px;
+    padding: 0.3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 18px;
+    background:  linear-gradient(to right, #464FEB 10.42%, #8330E9 100%);
+    z-index: 1;
+}
+.addbtn::before {
+    content: "";
+    position: absolute;
+    left: 1px;
+    right: 1px;
+    top: 1px;
+    bottom: 1px;
+    border-radius: 16px;
+    background-color: white;
+    z-index: -1;
+  }
+  .addbtn:hover {
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+  }
+.addbtn span{
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(90deg, #464FEB 10.42%, #8330E9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
