@@ -1,9 +1,11 @@
 import React from 'react'
+import WorkoutPage from './pages/WorkoutPage'
+import './App.css'
 
 const App = () => {
   return (
     <div>
-      app
+      <WorkoutPage />
     </div>
   )
 }
