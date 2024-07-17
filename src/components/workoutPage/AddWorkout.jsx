@@ -4,7 +4,7 @@ import question from '../../assets/Group.png';
 const AddWorkout = ({initialBlocks}) => {
 
   return (
-    <div className="w-1/5 shadow-md p-8 rounded-xl">
+    <div className="w-full shadow-md p-8 rounded-xl">
       <div className="flex items-end max-w-max">
         <h3 className='text-lg'>Click or drag the blocks to build workout</h3>
         <figure className="ml-2">
