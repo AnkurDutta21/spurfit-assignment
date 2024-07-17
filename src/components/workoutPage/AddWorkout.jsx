@@ -24,7 +24,7 @@ const AddWorkout = ({ initialBlocks,setBlocks }) => {
           <div className="grid grid-cols-3 gap-5 mt-5 max-w-max max-h-max">
             {initialBlocks.map((item, index) => (
               <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
-                {(provided) => (
+                {(provided,snapshot) => (
                   <figure
                     ref={provided.innerRef}
                     {...provided.draggableProps}
@@ -32,7 +32,7 @@ const AddWorkout = ({ initialBlocks,setBlocks }) => {
                     className="max-w-fit max-h-fit"
                     onClick={()=>addBlock(item)}
                   >
-                    <img src={item.image} alt={item.type} className="h-full w-full object-contain" />
+                    <img src={item.image} alt={item.type} className="h-full w-full object-contain" style={{width:snapshot.isDragging?'80%':'',height:snapshot.isDragging?'80%':''}}/>
                   </figure>
                 )}
               </Draggable>

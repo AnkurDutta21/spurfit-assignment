@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         'custom-blue': '#4339F2',
+        'custom-gray': '#CCCCCC',
       },
     },
   },

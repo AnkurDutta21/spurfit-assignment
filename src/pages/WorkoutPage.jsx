@@ -53,7 +53,7 @@ const WorkoutPage = () => {
           <AddWorkout initialBlocks={initialBlocks} setBlocks={setBlocks} className="col-span-1" />
           <div className="new col-span-3">
             <Graph blocks={blocks} handleResetBlocks={handleResetBlocks} />
-            <Steps blocks={blocks} />
+            {blocks?.length > 0 && <Steps blocks={blocks} />}
           </div>
         </div>
       </DragDropContext>
