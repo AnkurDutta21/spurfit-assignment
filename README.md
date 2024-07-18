@@ -10,6 +10,13 @@ This project is a React-based workout builder application where users can drag a
 - **Styled with Tailwind CSS**: For modern design.
 - **ToolTip with react-tooltip**: For user friendly interactions
 
+## Components
+
+- **Topbar**: Displays the page title and a button for additional actions.
+- **AddWorkout**: Contains draggable workout blocks that can be added to the graph.
+- **Graph**: Visual representation of the workout blocks, supports drag-and-drop functionality.
+- **Steps**: Displays the added blocks and allows further customization.
+
 ## Demo
  https://github.com/user-attachments/assets/0692d28a-8e3c-4935-9b6d-1a466f8503e5
 
@@ -37,9 +44,3 @@ This project is a React-based workout builder application where users can drag a
 2. Drag and drop blocks from the "Add Workout" section to the "Graph" section to build your workout.
 3. Click the "Clear Blocks" button to reset the graph and start over.
 
-## Components
-
-- **Topbar**: Displays the page title and a button for additional actions.
-- **AddWorkout**: Contains draggable workout blocks that can be added to the graph.
-- **Graph**: Visual representation of the workout blocks, supports drag-and-drop functionality.
-- **Steps**: Displays the added blocks and allows further customization.
