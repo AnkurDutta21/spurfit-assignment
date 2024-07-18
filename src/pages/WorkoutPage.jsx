@@ -30,18 +30,20 @@ const WorkoutPage = () => {
   const handleResetBlocks = () => {
     setBlocks([]);
   };
-
   const onDragEnd = (result) => {
     const { source, destination } = result;
     if (!destination) return;
+    
     let updatedBlocks = [...blocks];
+    
     if (source.droppableId !== destination.droppableId) {
-      const newBlock = initialBlocks[source.index];
+      const newBlock = initialBlocks[source.index]; // Ensure source.index exists
       updatedBlocks.splice(destination.index, 0, newBlock);
-    } else {
+    } else if(destination.droppableId === 'graph') {
       const [movedBlock] = updatedBlocks.splice(source.index, 1);
       updatedBlocks.splice(destination.index, 0, movedBlock);
     }
+    
     setBlocks(updatedBlocks);
   };
 

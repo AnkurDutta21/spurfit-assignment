@@ -10,7 +10,7 @@ const Graph = ({ blocks, handleResetBlocks }) => {
 
   const isBlocksEmpty = !blocks || blocks.length === 0;
   const currentBlocks = isBlocksEmpty ? defaultBlocks : blocks;
-  const totalDistance = currentBlocks.reduce((sum, block) => sum + block.distance, 0);
+  const totalDistance = currentBlocks.reduce((acc, item) => acc + (item?.distance || 0), 0);
 
   const getHeight = (type, index, subStepCount) => {
     switch (type) {
@@ -32,7 +32,7 @@ const Graph = ({ blocks, handleResetBlocks }) => {
   };
 
   const renderBlock = (block, index) => {
-    if (block.subSteps) {
+    if (block?.subSteps) {
       const subStepCount = block.subSteps.length;
       return block.subSteps.map((subStep, subIndex) => (
         <Draggable key={`${block.id}-${subIndex}`} draggableId={`${block.id}-${subIndex}`} index={index}>
@@ -43,14 +43,14 @@ const Graph = ({ blocks, handleResetBlocks }) => {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               style={{
-                flexBasis: `${(block.distance / totalDistance) * 100 / subStepCount}%`,
-                transform: snapshot.isDragging ? 'scale(0.8)' : 'none',
+                flexBasis: `${(block?.distance / totalDistance) * 100 / subStepCount}%`,
+                transform: snapshot?.isDragging ? 'scale(0.8)' : 'none',
                 transition: 'transform 0.2s ease',
               }}
             >
               <div
                 className="w-full bg-opacity-50 bg-indigo-600"
-                style={{ height: `${getHeight(block.type, subIndex, subStepCount)}%`, marginBottom: '4px' }}
+                style={{ height: `${getHeight(block?.type, subIndex, subStepCount)}%`, marginBottom: '4px' }}
               />
               <div className="text-center text-xs mt-1">{subStep}</div>
             </div>
@@ -59,7 +59,7 @@ const Graph = ({ blocks, handleResetBlocks }) => {
       ));
     } else {
       return (
-        <Draggable key={block.id} draggableId={block.id} index={index}>
+        <Draggable key={block?.id} draggableId={block?.id} index={index}>
           {(provided, snapshot) => (
             <div
               className="flex flex-col items-center justify-end mr-1"
@@ -67,16 +67,16 @@ const Graph = ({ blocks, handleResetBlocks }) => {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               style={{
-                flexBasis: `${(block.distance / totalDistance) * 100}%`,
-                transform: snapshot.isDragging ? 'scale(0.8)' : 'none',
+                flexBasis: `${(block?.distance / totalDistance) * 100}%`,
+                transform: snapshot?.isDragging ? 'scale(0.8)' : 'none',
                 transition: 'transform 0.2s ease',
               }}
             >
               <div
                 className="w-full bg-opacity-50 bg-indigo-600"
-                style={{ height: `${getHeight(block.type)}%`, marginBottom: '4px' }}
+                style={{ height: `${getHeight(block?.type)}%`, marginBottom: '4px' }}
               />
-              <div className="text-center text-xs mt-1">{block.distance} KM</div>
+              <div className="text-center text-xs mt-1">{block?.distance} KM</div>
             </div>
           )}
         </Draggable>
@@ -107,7 +107,7 @@ const Graph = ({ blocks, handleResetBlocks }) => {
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {currentBlocks.map((block, index) => renderBlock(block, index))}
+              {currentBlocks?.map((block, index) => renderBlock(block, index))}
               {provided.placeholder}
             </div>
           )}

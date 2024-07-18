@@ -1,11 +1,14 @@
 import React from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import question from '../../assets/Group.png';
+import { Tooltip } from 'react-tooltip'; // Use named import
+import "react-tooltip/dist/react-tooltip.css";
 
-const AddWorkout = ({ initialBlocks,setBlocks }) => {
+const AddWorkout = ({ initialBlocks, setBlocks }) => {
   const addBlock = (block) => {
-    setBlocks(prevBlocks => [...prevBlocks, block]);
+    setBlocks((prevBlocks) => [...prevBlocks, block]);
   };
+
   return (
     <Droppable droppableId="droppable">
       {(provided) => (
@@ -24,15 +27,19 @@ const AddWorkout = ({ initialBlocks,setBlocks }) => {
           <div className="grid grid-cols-3 gap-5 mt-5 max-w-max max-h-max">
             {initialBlocks.map((item, index) => (
               <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
-                {(provided,snapshot) => (
+                {(provided, snapshot) => (
                   <figure
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     className="max-w-fit max-h-fit"
-                    onClick={()=>addBlock(item)}
+                    onClick={() => addBlock(item)}
+                    data-tooltip-id="my-tooltip"
+                    data-tooltip-content={item?.type}
+                    data-tooltip-place="bottom"
                   >
-                    <img src={item.image} alt={item.type} className="h-full w-full object-contain" style={{width:snapshot.isDragging?'80%':'',height:snapshot.isDragging?'80%':''}}/>
+                    <img src={item.image} alt={item.type} className="h-full w-full object-contain" style={{ width: snapshot?.isDragging ? '80%' : '', height: snapshot?.isDragging ? '80%' : '' }} />
+                    <Tooltip id="my-tooltip" />
                   </figure>
                 )}
               </Draggable>
